@@ -318,7 +318,10 @@ public class GenericClass implements Serializable {
 						return true;
 				}
 				//logger.debug("Checking instantiation: " + instantiation);
-				return instantiation.canBeInstantiatedTo(otherType);
+				if (!instantiation.getRawClass().getCanonicalName().equals(getRawClass().getCanonicalName())) {
+					return instantiation.canBeInstantiatedTo(otherType);
+				}
+				return false;
 			} catch (ConstructionFailedException e) {
 				logger.debug("Failed to instantiate " + toString());
 				return false;
